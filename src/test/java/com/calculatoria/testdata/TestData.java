@@ -37,4 +37,20 @@ public class TestData{
                 Arguments.of("-4.3","2.1","-2.048")
         );
     }
+
+    public static Stream<Arguments> sqrtTestDataProvider() {
+        return Stream.of(
+                Arguments.of("9", "3"),
+                Arguments.of("2.5", "1.581"),
+                Arguments.of("-4.3","NaN")
+        );
+    }
+
+    public static Stream<Arguments> powTestDataProvider() {
+        return Stream.of(
+                Arguments.of("3", "5", "243"),
+                Arguments.of("2.5", "3.25", "19.647"),
+                Arguments.of("-4.3","2.1","NaN")
+        );
+    }
 }

@@ -3,6 +3,7 @@ package com.calculatoria.step;
 import com.calculatoria.pages.BasicCalcPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import java.io.UnsupportedEncodingException;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,16 +17,32 @@ public class BaseCalcSteps {
     }
 
     @Step
-    public void enter2numbers1operation(String a, String b, String o) {
+    public void operationWithTwoValues(String a, String b, Character op) {
         basicCalcPage.clearInput();
-        basicCalcPage.buttonPresser(a);
-        basicCalcPage.buttonPresser(o);
-        basicCalcPage.buttonPresser(b);
+        basicCalcPage.digitPresser(a);
+        switch (op) {
+            case '+':
+                basicCalcPage.pressSum();
+                break;
+            case '-':
+                basicCalcPage.pressSub();
+                break;
+            case '*':
+                basicCalcPage.pressMult();
+                break;
+            case '/':
+                basicCalcPage.pressDiv();
+                break;
+            default:
+                System.out.println("Unknown parameter in test data");
+        }
+
+        basicCalcPage.digitPresser(b);
     }
 
     @Step
     public void pressEnter() {
-        basicCalcPage.buttonPresser("=");
+        basicCalcPage.pressEquals();
     }
 
     @Step
@@ -34,8 +51,13 @@ public class BaseCalcSteps {
     }
 
     @Step
-    public void checkRecordInNotes(String a, String b, String op, String sum) {
+    public void checkRecordInNotes(String a, String b, String op, String sum) throws UnsupportedEncodingException {
         assertEquals(a+op+b+"="+sum, basicCalcPage.getLastNotesVal());
+    }
+
+    @Step
+    public void checkRecordInNotes(String a, String op, String b) throws UnsupportedEncodingException {
+        assertEquals(op+" "+a+"="+b, basicCalcPage.getLastNotesVal());
     }
 
 }
