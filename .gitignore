@@ -1,6 +1,12 @@
 .DS_Store
+.gradle/*
+gradle/*
 .idea/*
 target/*
 javadoc/*
+allure-results/*
+build/
 test_results.htm
 autotests.iml
+gradlew.bat
+gradlew
